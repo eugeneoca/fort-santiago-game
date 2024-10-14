@@ -1,0 +1,136 @@
+[gd_scene load_steps=9 format=3 uid="uid://coepkd3gg6syq"]
+
+[ext_resource type="Texture2D" uid="uid://dw1rtk537bcok" path="res://assets/images/title.png" id="1_7t6ai"]
+[ext_resource type="PackedScene" uid="uid://bc6pw16cf2w7c" path="res://prefabs/menu_button.tscn" id="1_l7f0l"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_y1lsd"]
+[ext_resource type="PackedScene" uid="uid://dsvy4sb36rmqu" path="res://scenes/level_1.tscn" id="2_11kmi"]
+[ext_resource type="Texture2D" uid="uid://cj5vukel1rqny" path="res://assets/images/subtitle.png" id="2_nlbpb"]
+
+[sub_resource type="Gradient" id="Gradient_nrtk4"]
+offsets = PackedFloat32Array(0.3, 0.7, 1)
+colors = PackedColorArray(0.00392157, 0, 0.188235, 1, 0.00392157, 0, 0.188235, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_26qc1"]
+gradient = SubResource("Gradient_nrtk4")
+fill = 1
+fill_from = Vector2(0, 0.320513)
+fill_to = Vector2(1, 0.529915)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jgh2q"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+gravity = Vector3(0, 98, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_y1lsd")
+
+[node name="bg-color" type="TextureRect" parent="."]
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_26qc1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/Header/CenterContainer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_7t6ai")
+
+[node name="Subheader" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Subheader"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/Subheader/CenterContainer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_nlbpb")
+
+[node name="Body" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="New Game" parent="VBoxContainer/Body/VBoxContainer" instance=ExtResource("1_l7f0l")]
+layout_mode = 2
+label = "New Game"
+target_scene = ExtResource("2_11kmi")
+
+[node name="Continue" parent="VBoxContainer/Body/VBoxContainer" instance=ExtResource("1_l7f0l")]
+layout_mode = 2
+label = "Continue"
+
+[node name="Settings" parent="VBoxContainer/Body/VBoxContainer" instance=ExtResource("1_l7f0l")]
+layout_mode = 2
+label = "Settings"
+
+[node name="About" parent="VBoxContainer/Body/VBoxContainer" instance=ExtResource("1_l7f0l")]
+layout_mode = 2
+label = "About"
+
+[node name="Quit" parent="VBoxContainer/Body/VBoxContainer" instance=ExtResource("1_l7f0l")]
+layout_mode = 2
+label = "Quit"
+to_quit = true
+
+[node name="Footer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/Footer"]
+visible = false
+layout_mode = 2
+text = "BSIT32E2 © 2024"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(4, -40)
+rotation = -3.9619
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_jgh2q")
+lifetime = 5.0
